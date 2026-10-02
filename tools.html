@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<title>Tools Bot — Informatika Web</title>
+<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+<nav>
+  <div class="logo">💻 Informatika</div>
+  <ul>
+    <li><a href="/index.html">Beranda</a></li>
+    <li><a href="/materi.html">Materi</a></li>
+    <li><a href="/tools.html" class="active">Tools</a></li>
+    <li class="theme-switch"></li>
+    <li id="user-area"></li>
+  </ul>
+</nav>
+
+<div class="container">
+  <h1>🤖 Tools Bot Telegram</h1>
+  <p>Bot Telegraf dengan berbagai tools. Kirim perintah berikut ke bot Telegram Anda.</p>
+
+  <div class="grid" style="margin-top:1.5rem">
+    <div class="card"><h3>/start</h3><p>Sambutan & menu</p></div>
+    <div class="card"><h3>/help</h3><p>Daftar perintah</p></div>
+    <div class="card"><h3>/materi</h3><p>Daftar materi TIK</p></div>
+    <div class="card"><h3>/qrcode &lt;teks&gt;</h3><p>Generate QR Code</p></div>
+    <div class="card"><h3>/wiki &lt;query&gt;</h3><p>Cari di Wikipedia</p></div>
+    <div class="card"><h3>/kurs</h3><p>Kurs USD, SGD, MYR</p></div>
+    <div class="card"><h3>/cuaca &lt;kota&gt;</h3><p>Info cuaca realtime</p></div>
+    <div class="card"><h3>/id</h3><p>Info user Telegram</p></div>
+    <div class="card"><h3>/ping</h3><p>Cek latency bot</p></div>
+  </div>
+
+  <div class="card" style="margin-top:2rem">
+    <h2>🚀 Cara Menjalankan Bot</h2>
+    <ol style="color:var(--text-muted);margin-left:1.5rem;line-height:2">
+      <li>Chat <b>@BotFather</b> di Telegram → <code>/newbot</code></li>
+      <li>Salin token ke file <code>.env</code></li>
+      <li>Jalankan: <code>npm run bot</code></li>
+      <li>Chat bot Anda & ketik <code>/start</code></li>
+    </ol>
+  </div>
+</div>
+
+<footer>© 2025 Informatika Web</footer>
+<script src="/js/theme.js"></script>
+<script src="/js/app.js"></script>
+</body>
+</html>

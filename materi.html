@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<title>Materi — Informatika Web</title>
+<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+<nav>
+  <div class="logo">💻 Informatika</div>
+  <ul>
+    <li><a href="/index.html">Beranda</a></li>
+    <li><a href="/materi.html" class="active">Materi</a></li>
+    <li><a href="/tools.html">Tools</a></li>
+    <li class="theme-switch"></li>
+    <li id="user-area"></li>
+  </ul>
+</nav>
+
+<div class="container">
+  <h1>📚 Materi TIK Lengkap</h1>
+  <p>Klik untuk membaca materi.</p>
+
+  <input type="text" id="search" class="search-bar" placeholder="🔍 Cari materi..." />
+
+  <div class="grid" id="materi-grid"></div>
+</div>
+
+<footer>© 2025 Informatika Web</footer>
+
+<script>
+const materiList = [
+  { icon:'🖥️', title:'Pengenalan Komputer', desc:'Sejarah, komponen, jenis komputer', isi:'Komputer adalah perangkat elektronik yang memproses data menjadi informasi. Komponen utama: CPU, RAM, Storage, Motherboard.' },
+  { icon:'⚙️', title:'Sistem Operasi', desc:'Windows, Linux, macOS', isi:'Sistem operasi mengelola hardware & software. Contoh: Windows 11, Ubuntu, macOS Sonoma.' },
+  { icon:'📄', title:'Microsoft Word', desc:'Pengolah kata profesional', isi:'Fitur: formatting, tabel, mail merge, tracking perubahan, kolaborasi.' },
+  { icon:'📊', title:'Microsoft Excel', desc:'Spreadsheet & analisis data', isi:'Rumus dasar: SUM, AVERAGE, IF, VLOOKUP, Pivot Table, Chart.' },
+  { icon:'🎞️', title:'Microsoft PowerPoint', desc:'Presentasi menarik', isi:'Desain slide, animasi, transisi, penyisipan multimedia.' },
+  { icon:'🌐', title:'Internet & Jaringan', desc:'IP, DNS, HTTP, LAN/WAN', isi:'Internet = jaringan global. Protokol: TCP/IP, HTTP, HTTPS, FTP, SMTP.' },
+  { icon:'💻', title:'Pemrograman Dasar', desc:'Algoritma & logika', isi:'Bahasa: Python, JS, C++. Struktur: variabel, kondisi, loop, fungsi.' },
+  { icon:'🗄️', title:'Basis Data', desc:'SQL & relasi tabel', isi:'RDBMS: MySQL, PostgreSQL. Perintah: SELECT, INSERT, UPDATE, DELETE, JOIN.' },
+  { icon:'🎨', title:'Multimedia', desc:'Desain, audio, video', isi:'Software: Photoshop, Illustrator, Premiere. Format: JPG, PNG, MP3, MP4.' },
+  { icon:'🔐', title:'Keamanan Siber', desc:'Enkripsi & firewall', isi:'Ancaman: malware, phishing, DDoS. Proteksi: antivirus, 2FA, VPN.' },
+  { icon:'🧮', title:'Algoritma & Flowchart', desc:'Logika pemrograman', isi:'Simbol: terminator, process, decision, I/O. Struktur: sequence, selection, loop.' },
+  { icon:'🤖', title:'Kecerdasan Buatan', desc:'AI & Machine Learning', isi:'Konsep: neural network, deep learning, NLP, computer vision.' }
+];
+
+function render(filter='') {
+  const grid = document.getElementById('materi-grid');
+  const f = filter.toLowerCase();
+  grid.innerHTML = materiList
+    .filter(m => m.title.toLowerCase().includes(f) || m.desc.toLowerCase().includes(f))
+    .map(m => `
+      <div class="card" onclick="alert('${m.title}\\n\\n${m.isi}')">
+        <div style="font-size:2rem">${m.icon}</div>
+        <h3>${m.title}</h3>
+        <p>${m.desc}</p>
+      </div>
+    `).join('');
+}
+render();
+document.getElementById('search').addEventListener('input', e => render(e.target.value));
+</script>
+<script src="/js/theme.js"></script>
+<script src="/js/app.js"></script>
+</body>
+</html>
