@@ -6,27 +6,27 @@ const path = require('path');
 const { setupAuth } = require('./auth');
 
 const app = express();
-const PORT = process.env.PORT || 3000;  // ← Railway kasih PORT otomatis
+const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '../public')));
 
-// ⚠️ PENTING untuk Railway (HTTPS):
+// ⚠️ WAJIB untuk Render (HTTPS reverse proxy)
 app.set('trust proxy', 1);
 
 app.use(cookieSession({
   name: 'sess',
-  keys: [process.env.SESSION_SECRET],
+  keys: [process.env.SESSION_SECRET || 'default_secret_ganti_ya'],
   maxAge: 24 * 60 * 60 * 1000,
-  secure: process.env.NODE_ENV === 'production',  // ← HTTPS only
-  sameSite: 'lax'                                  // ← untuk OAuth
+  secure: process.env.NODE_ENV === 'production',
+  sameSite: 'lax'
 }));
 
 app.use(passport.initialize());
 app.use(passport.session());
 setupAuth(passport);
 
-// Routes auth
+// Auth routes
 app.get('/auth/google',
   passport.authenticate('google', { scope: ['profile', 'email'] }));
 
@@ -41,9 +41,7 @@ app.get('/auth/github/callback',
   passport.authenticate('github', { failureRedirect: '/login.html' }),
   (req, res) => res.redirect('/index.html'));
 
-app.get('/api/me', (req, res) => {
-  res.json(req.user || null);
-});
+app.get('/api/me', (req, res) => res.json(req.user || null));
 
 app.get('/api/logout', (req, res) => {
   req.logout(() => res.redirect('/login.html'));
@@ -58,6 +56,22 @@ app.get('/api/materi', requireAuth, (req, res) => {
   res.json({ ok: true, user: req.user });
 });
 
-app.get('/', (req, res) => res.sendFile(path.join(__dirname, '../public/index.html')));
+app.get('/', (req, res) => 
+  res.sendFile(path.join(__dirname, '../public/index.html')));
 
-app.listen(PORT, () => console.log(`🌐 Server: http://localhost:${PORT}`));
+// Health check untuk Render
+app.get('/health', (req, res) => res.json({ ok: true }));
+
+// 🔥 GABUNG BOT DI SINI — biar jalan bareng web
+if (process.env.BOT_TOKEN) {
+  try {
+    require('./bot/bot');
+    console.log('🤖 Bot Telegram dijalankan bersamaan dengan web');
+  } catch (err) {
+    console.error('❌ Gagal jalankan bot:', err.message);
+  }
+}
+
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`🌐 Server running on port ${PORT}`);
+});
