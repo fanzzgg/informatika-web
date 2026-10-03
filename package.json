@@ -6,11 +6,11 @@
     "node": ">=18.0.0"
   },
   "scripts": {
-    "start": "node server/index.js",
-    "bot": "node server/bot/bot.js"
+    "start": "node server/index.js"
   },
   "dependencies": {
     "cookie-session": "^2.1.0",
+    "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "passport": "^0.7.0",
     "passport-github2": "^0.1.12",
